@@ -6,6 +6,7 @@ from flask import redirect, render_template
 from app import app
 
 from .forms import PaymentForm
+from .helpers import generate_signature
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -23,13 +24,8 @@ def homepage():
                 'payer_currency': int(data['currency']),
                 'shop_order_id': 1234,
             }
-            sign = (
-                ':'.join(
-                    [str(required_data[key]) for key in sorted(required_data.keys())]
-                )
-                + app.secret_key
-            )
-            hash = hashlib.sha256(sign.encode()).hexdigest()
+
+            hash = generate_signature(required_data, app.secret_key)
             data = {**required_data, 'sign': hash, 'description': data['description']}
             response = requests.post(
                 'https://core.piastrix.com/bill/create', json=data
@@ -40,6 +36,24 @@ def homepage():
             else:
                 print(response['message'])
 
-        return 'hello'
+        elif data['currency'] == '978':
+            required_data = {
+                'amount': str(data['amount']),
+                'currency': int(data['currency']),
+                'payway': 'advcash_rub',
+                'shop_id': app.config['SHOP_ID'],
+                'shop_order_id': 1234,
+            }
 
-    return render_template('payment.html', form=form)
+            hash = generate_signature(required_data, app.secret_key)
+            data = {**required_data, 'sign': hash, 'description': data['description']}
+            response = requests.post(
+                'https://core.piastrix.com/invoice/create', json=data
+            ).json()
+
+            if response['result']:
+                return render_template('invoice.html', form_data=response['data'])
+            else:
+                print(response['message'])
+
+    return render_template('homepage.html', form=form)
