@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 <form action="{{ form_data['url'] }}" method="{{ form_data['method'] }}">
     {% for key, value in form_data['data'].items() %}
     <input name="{{ key }}" value="{{ value }}" hidden />
@@ -6,3 +10,5 @@
 <script>
     document.querySelector('form').submit();
 </script>
+
+{% endblock %}

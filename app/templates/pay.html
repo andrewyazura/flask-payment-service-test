@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 <form name="Pay" method="post" action="https://pay.piastrix.com/en/pay">
     {% for key, value in form_data.items() %}
     <input name="{{ key }}" value="{{ value }}" hidden />
@@ -6,3 +10,5 @@
 <script>
     document.querySelector('form').submit();
 </script>
+
+{% endblock %}
