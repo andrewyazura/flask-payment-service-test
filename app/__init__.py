@@ -23,11 +23,15 @@ def create_app():
     if app.config['IS_HEROKU']:
         stream_handler = logging.StreamHandler(sys.stdout)
         stream_handler.setLevel(logging.INFO)
+        app.logger.handlers.clear()
         app.logger.addHandler(stream_handler)
     else:
         logging.basicConfig(
             filename='flask-service.log',
             level=logging.INFO,
         )
+
+    app.logger.setLevel(logging.INFO)
+    app.logger.info('flask service starting')
 
     return app

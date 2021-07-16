@@ -23,7 +23,7 @@ def homepage():
         )
         db.session.add(payment)
         db.session.commit()
-        current_app.logger.debug('payment created')
+        current_app.logger.info('payment created')
 
         if data['currency'] == '840':
             current_app.logger.info('form currency is USD')
