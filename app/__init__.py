@@ -8,11 +8,6 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    logging.basicConfig(
-        filename='flask-service.log',
-        level=logging.INFO,
-    )
-
     from app.models import db
     from app.routes import bp
 
@@ -23,5 +18,15 @@ def create_app():
         from app.models import PaymentModel
 
         db.create_all()
+
+    if app.config['IS_HEROKU']:
+        stream_handler = logging.StreamHandler()
+        stream_handler.setLevel(logging.INFO)
+        app.logger.addHandler(stream_handler)
+    else:
+        logging.basicConfig(
+            filename='flask-service.log',
+            level=logging.INFO,
+        )
 
     return app
