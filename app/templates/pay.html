@@ -1,0 +1,8 @@
+<form name="Pay" method="post" action="https://pay.piastrix.com/en/pay">
+    {% for key, value in form_data.items() %}
+    <input name="{{ key }}" value="{{ value }}" hidden />
+    {% endfor %}
+</form>
+<script>
+    document.querySelector('form').submit();
+</script>

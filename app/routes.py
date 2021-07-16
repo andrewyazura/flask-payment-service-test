@@ -1,5 +1,3 @@
-import hashlib
-
 import requests
 from flask import redirect, render_template
 
@@ -55,5 +53,17 @@ def homepage():
                 return render_template('invoice.html', form_data=response['data'])
             else:
                 print(response['message'])
+
+        elif data['currency'] == '643':
+            required_data = {
+                'amount': str(data['amount']),
+                'currency': int(data['currency']),
+                'shop_id': app.config['SHOP_ID'],
+                'shop_order_id': 1234,
+            }
+
+            hash = generate_signature(required_data, app.secret_key)
+            data = {**required_data, 'sign': hash, 'description': data['description']}
+            return render_template('pay.html', form_data=data)
 
     return render_template('homepage.html', form=form)
