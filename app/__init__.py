@@ -1,4 +1,5 @@
 import logging
+import sys
 
 from config import Config
 from flask import Flask
@@ -20,7 +21,7 @@ def create_app():
         db.create_all()
 
     if app.config['IS_HEROKU']:
-        stream_handler = logging.StreamHandler()
+        stream_handler = logging.StreamHandler(sys.stdout)
         stream_handler.setLevel(logging.INFO)
         app.logger.addHandler(stream_handler)
     else:
