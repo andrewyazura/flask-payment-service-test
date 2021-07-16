@@ -1,3 +1,5 @@
 flask
+flask-wtf
+flask-sqlalchemy
 python-dotenv
 requests

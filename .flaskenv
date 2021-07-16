@@ -1,1 +1,1 @@
-FLASK_APP=service.py
+FLASK_APP=main.py
