@@ -15,7 +15,7 @@ def homepage():
     if form.validate_on_submit():
         data = form.data
         payment = PaymentModel(
-            amount=data['amount'],
+            amount=str(data['amount']),
             currency=int(data['currency']),
             description=data['description'],
         )
