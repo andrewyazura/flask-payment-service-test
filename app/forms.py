@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import DecimalField, SelectField, StringField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Optional
 from wtforms.widgets import TextArea
 
 
@@ -17,6 +17,6 @@ class PaymentForm(FlaskForm):
     description = StringField(
         u'Description',
         widget=TextArea(),
-        validators=[DataRequired()],
+        validators=[Optional()],
     )
     submit = SubmitField(u'Submit')

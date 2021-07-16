@@ -3,17 +3,19 @@
 {% block content %}
 
 <h1>Payment</h1>
-<form action="/" method="post">
+<form action="/" method="post" class="row g-3">
     {{ form.csrf_token }}
-    <div>
-        {{ form.amount }}
-        {{ form.currency }}
+    <div class="col-8">
+        {{ form.amount(class_='form-control', placeholder='Amount') }}
     </div>
-    <div>
-        {{ form.description }}
+    <div class="col-4">
+        {{ form.currency(class_='form-select') }}
     </div>
-    <div>
-        {{ form.submit }}
+    <div class="col-lg-12">
+        {{ form.description(class_='form-control', placeholder='Optional description') }}
+    </div>
+    <div class="col-lg-12">
+        {{ form.submit(class_='btn btn-primary btn-lg') }}
     </div>
 </form>
 
