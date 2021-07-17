@@ -19,4 +19,4 @@ class PaymentForm(FlaskForm):
         widget=TextArea(),
         validators=[Optional()],
     )
-    submit = SubmitField(u'Submit')
+    submit = SubmitField(u'Pay')

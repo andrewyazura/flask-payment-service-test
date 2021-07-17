@@ -36,7 +36,11 @@ def homepage():
             }
 
             hash = generate_signature(required_data, current_app.secret_key)
-            data = {**required_data, 'sign': hash, 'description': data['description']}
+            data = {
+                **required_data,
+                'sign': hash,
+                'description': data['description'],
+            }
             response = requests.post(
                 'https://core.piastrix.com/bill/create', json=data
             ).json()
@@ -65,7 +69,11 @@ def homepage():
             }
 
             hash = generate_signature(required_data, current_app.secret_key)
-            data = {**required_data, 'sign': hash, 'description': data['description']}
+            data = {
+                **required_data,
+                'sign': hash,
+                'description': data['description'],
+            }
             response = requests.post(
                 'https://core.piastrix.com/invoice/create', json=data
             ).json()
@@ -75,7 +83,9 @@ def homepage():
                 current_app.logger.info(
                     'request to invoice api successful, redirecting user to invoice form'
                 )
-                return render_template('invoice.html', form_data=response['data'])
+                return render_template(
+                    'invoice.html', form_data=response['data']
+                )
             else:
                 current_app.logger.error(
                     'request to api failed, error message: {}'.format(
@@ -93,7 +103,11 @@ def homepage():
             }
 
             hash = generate_signature(required_data, current_app.secret_key)
-            data = {**required_data, 'sign': hash, 'description': data['description']}
+            data = {
+                **required_data,
+                'sign': hash,
+                'description': data['description'],
+            }
 
             current_app.logger.info('redirecting user to payment form')
             return render_template('pay.html', form_data=data)
