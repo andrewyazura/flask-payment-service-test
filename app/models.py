@@ -5,6 +5,7 @@ db = SQLAlchemy()
 
 
 class PaymentModel(db.Model):
+    __tablename__ = 'payment_model'
     id = db.Column(db.Integer, primary_key=True)
     amount = db.Column(db.String(280), nullable=False)
     currency = db.Column(db.Integer, nullable=False)
